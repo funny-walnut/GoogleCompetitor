@@ -98,20 +98,31 @@ namespace Level1Space
                 gotov[0] = s;
             }
             int[] wordFounder = new int[counterString ];//массив чисел указывающих, обнаружено ли слово
-            for (int i = 0; i < counterString; i++)
-            {
-                bool b = gotov[i].Contains(subs);
-                if (b)
-                {
-                    int index = gotov[i].IndexOf(subs);
-                    if ((index == 0 && Char.IsWhiteSpace(gotov[i], subs.Length))
-                        || (index == gotov[i].Length - subs.Length && Char.IsWhiteSpace(gotov[i], gotov[i].Length - subs.Length - 1))
-                        || (Char.IsWhiteSpace(gotov[i], index - 1) && Char.IsWhiteSpace(gotov[i], index + subs.Length)))
 
-                        wordFounder[i] = 1;
-                    else wordFounder[i] = 0;
-                       
+            if (a != 0)
+            {
+                for (int i = 0; i < counterString; i++)
+                {
+                    bool b = gotov[i].Contains(subs);
+                    if (b)
+                    {
+                        int index = gotov[i].IndexOf(subs);
+                        if ((index == 0 && Char.IsWhiteSpace(gotov[i], subs.Length))
+                            || (index == gotov[i].Length - subs.Length && Char.IsWhiteSpace(gotov[i], gotov[i].Length - subs.Length - 1))
+                            || (Char.IsWhiteSpace(gotov[i], index - 1) && Char.IsWhiteSpace(gotov[i], index + subs.Length)))
+
+                            wordFounder[i] = 1;
+                        else wordFounder[i] = 0;
+
+                    }
                 }
+            }
+            else
+            {
+                if (gotov[0].Contains(subs) && gotov[0].Length == subs.Length)
+                    wordFounder[0] = 1;
+                else
+                    wordFounder[0] = 0;
             }
             return wordFounder;
         }
