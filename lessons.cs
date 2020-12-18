@@ -10,6 +10,7 @@ namespace Level1Space
             int a = 0; //счетчик пробелов
             int counterString = 0; //счетчик строк в массиве
             string[] gotov = new string[s.Length]; //массив строк , на которые разделим большую строку по заданной ширине
+            string[] words = new string[s.Length];
             for (int i = 0; i < s.Length;i++)
             {
                 if (Char.IsWhiteSpace(s,i))
@@ -18,11 +19,8 @@ namespace Level1Space
                 }
             }
             if (a != 0)
-            {
-                string[] words = s.Split(' '); //делим строку на слова по пробелам
-
-
-
+            { words = s.Split(' '); }//делим строку на слова по пробелам
+            else { words = new[]{ s }; }
                 string summary = null; // временная строка до присвоения в массив строк
                 string medium = null;
                 for (int i = 0; i < words.Length - 1; i++)
@@ -84,30 +82,21 @@ namespace Level1Space
                     }
                     else
                     {
-                        gotov[counterString] = summary.Substring(0, 12);
-                        summary = summary.Substring(12, summary.Length - 12);
+                        gotov[counterString] = summary.Substring(0, len);
+                        summary = summary.Substring(len, summary.Length - len);
                         counterString++;
                     }
-
                 }
-            }
+         int[] wordFounder = new int[counterString ];//массив чисел указывающих, обнаружено ли слово
 
-            else
-            {
-                counterString = 1;
-                gotov[0] = s;
-            }
-            int[] wordFounder = new int[counterString ];//массив чисел указывающих, обнаружено ли слово
-
-            if (a != 0)
-            {
                 for (int i = 0; i < counterString; i++)
                 {
                     bool b = gotov[i].Contains(subs);
                     if (b)
                     {
                         int index = gotov[i].IndexOf(subs);
-                        if ((index == 0 && Char.IsWhiteSpace(gotov[i], subs.Length))
+                    if ((subs.Length==gotov[i].Length)
+                    || (index == 0 && Char.IsWhiteSpace(gotov[i], subs.Length))
                             || (index == gotov[i].Length - subs.Length && Char.IsWhiteSpace(gotov[i], gotov[i].Length - subs.Length - 1))
                             || (Char.IsWhiteSpace(gotov[i], index - 1) && Char.IsWhiteSpace(gotov[i], index + subs.Length)))
 
@@ -116,14 +105,6 @@ namespace Level1Space
 
                     }
                 }
-            }
-            else
-            {
-                if (gotov[0].Contains(subs) && gotov[0].Length == subs.Length)
-                    wordFounder[0] = 1;
-                else
-                    wordFounder[0] = 0;
-            }
             return wordFounder;
         }
   }
