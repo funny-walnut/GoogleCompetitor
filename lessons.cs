@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace SortSpace
+namespace Level1Space
 {
   public static class Level1
   {
